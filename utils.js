@@ -35,7 +35,7 @@ function addToFavorites(element, index) {
     localStorage.setItem("favorites", JSON.stringify(favs));
     console.log(`Item [${element.imdbID}] was added to favorites.`);
     deleteCard(index);
-    init();
+    drawCards(movies);
     successMsg("Added successfully to favorites.");
   } else {
     errorMsg("This is already favored!");
@@ -84,5 +84,5 @@ function deleteCard(index) {
 
   let moviesToDraw = JSON.parse(localStorage.getItem("drawArray"));
 
-  drawCards(moviesToDraw);
+  init();
 }

@@ -8,18 +8,41 @@ function init() {
     if (localStorage?.getItem("drawArray")) {
       movies = JSON.parse(localStorage.getItem("drawArray"));
     }
+    getTypeStats(movies);
+    // const result = getTypeStats(movies);
+    // drawStats(movies, GLOBALS.statsChart);
     drawCards(movies);
   } else {
     if (localStorage?.getItem("favorites")) {
       favs = JSON.parse(localStorage.getItem("favorites")) || [];
     }
+    getTypeStats(favs);
+    // const result = getTypeStats(favs);
+    // drawStats(favs, GLOBALS.statsChart);
     drawCards(favs);
   }
 }
 
 const GLOBALS = {
   masterContainer: document.getElementById("master-container"),
+  resetAllBtn: document.getElementById("resetMovies"),
+  pruneFavs: document.getElementById("pruneFavs"),
+  statsChart: document.getElementById("statsChart"),
 };
+
+try {
+  GLOBALS.resetAllBtn.addEventListener("click", function () {
+    localStorage.removeItem("drawArray");
+    location.reload();
+  });
+} catch (error) {}
+
+try {
+  GLOBALS.pruneFavs.addEventListener("click", function () {
+    localStorage.removeItem("favorites");
+    location.reload();
+  });
+} catch (error) {}
 
 function drawCards(arr) {
   clearCards();
