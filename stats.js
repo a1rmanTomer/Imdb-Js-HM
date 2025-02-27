@@ -10,43 +10,49 @@ function getTypeStats(arr) {
     }
   });
 
-  console.log(stats);
-
   return stats;
 }
 
-// let chart = null;
-// function drawStats(arr, targetCanvas) {
-//   if (!targetCanvas) return;
-//   let labels = [];
-//   let data = [];
-//   for (const property in arr) {
-//     labels.push(property);
-//     data.push(arr[property]);
-//   }
+let chart = null;
+function drawStats(arr) {
+  const ctx = document.getElementById("statsChart").getContext("2d");
+  const stats = getTypeStats(arr);
+  console.log(stats);
 
-//   const ctx = document.getElementById("myChart");
-//   if (chart) {
-//     chart.destroy();
-//   }
-//   chart = new Chart(ctx, {
-//     type: "bar",
-//     data: {
-//       labels: labels,
-//       datasets: [
-//         {
-//           label: "Number of jokes",
-//           data: data,
-//           borderWidth: 5,
-//         },
-//       ],
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true,
-//         },
-//       },
-//     },
-//   });
-// }
+  let drawStats = [];
+  let labels = [];
+
+  for (const property in stats) {
+    labels.push(property);
+    drawStats.push(stats[property]);
+  }
+
+  if (chart) {
+    chart.destroy();
+  }
+  chart = new Chart(ctx, {
+    type: "pie",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "# of Votes",
+          data: drawStats,
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "Types",
+        },
+      },
+    },
+  });
+}

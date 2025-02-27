@@ -63,6 +63,8 @@ function removeFromFavorites(element) {
       foundIndex = i;
       break;
     }
+
+    init();
   }
 
   if (foundIndex !== -1) {
